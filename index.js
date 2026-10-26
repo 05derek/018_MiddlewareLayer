@@ -12,3 +12,17 @@ const pool = new Pool({
     database: 'mahasiswa',
     password: 'derek123',
 })
+
+app.use((req, res, next) => {
+    const start = Date.now()
+    console.log({
+        method: req.method,
+        url: req.originalUrl,
+        status: res.statusCode,
+        duration: `${Date.now() - start}ms`
+    })
+
+    next()
+})
+
+
