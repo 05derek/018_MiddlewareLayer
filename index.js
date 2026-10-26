@@ -33,3 +33,16 @@ function succesResponse(res, message, data, status = 200) {
         error: null,
     })
 }
+
+function errorResponse(res, message, error, status = null) {
+    return res.status(status).json({
+        success: false,
+        message,
+        data: null,
+        error:details,
+    })
+}
+
+const biodataSchema = Joi.object({
+    
+})
