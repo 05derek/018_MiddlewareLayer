@@ -158,3 +158,31 @@ app.put(
         )
     }
 )
+
+app.delete(
+    '/biodata/:id',
+    validateParams(idSchema),
+    async (req, res) => {
+        const { id } = req.params
+
+        const result = await pool.query(
+            'DELETE FROM biodata WHERE id = $1 RETURNING *',
+            [id]
+        )
+
+        if (result.rowCount === 0) {
+            return errorResponse(
+                res,
+                'Data tidak ditemukan',
+                404,
+            )
+        }
+
+        return succesResponse(
+            res,
+            'Berhasil menghapus data',
+            result.rows[0]
+        )
+    }
+)
+        
