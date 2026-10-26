@@ -90,8 +90,21 @@ function validateParams(schema) {
                 }))
             )
         }
+
+        req.params = values
+        next()
     }
 }
 
-req.params = value
-next()
+app.get('/', async (req, res) => {
+    const result = await pool.query(
+        'SELECT * FROM biodata ORDER BY id'
+    )
+
+    return succesResponse(
+        res, 
+        'Berhasil mengambil data',
+         result.rows
+        )
+})
+
