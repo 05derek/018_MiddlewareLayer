@@ -1,6 +1,6 @@
 import express from 'express'
 import pg from 'pg'
-impor Joi from 'joi'
+import Joi from 'joi'
 
 const app = express()
 const port = 3000
@@ -74,3 +74,24 @@ function validateBody(schema) {
         next()
     }
 }
+
+function validateParams(schema) {
+    return (req, res, next) => {
+        const { error, values} = schema.validate(req.params)
+
+        if (error) {
+            return errorResponse(
+                res,
+                'Parameter tidak valid',
+                400,
+                error.details.map(item => ({
+                    field: item.path.join('.'),
+                    message: item.message,
+                }))
+            )
+        }
+    }
+}
+
+req.params = value
+next()
