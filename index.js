@@ -207,4 +207,8 @@ app.use((err, req, res, next) => {
         500,
     )
 })
+
+app.listen(port, () => {
+    console.log(`App is running on port ${port}`)
+})
         
